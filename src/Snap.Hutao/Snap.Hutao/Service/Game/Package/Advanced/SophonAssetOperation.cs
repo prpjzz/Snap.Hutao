@@ -11,29 +11,33 @@ internal sealed class SophonAssetOperation
 
     public string UrlPrefix { get; init; } = default!;
 
+    public string UrlSuffix { get; init; } = default!;
+
     public AssetProperty OldAsset { get; init; } = default!;
 
     public AssetProperty NewAsset { get; init; } = default!;
 
     public List<SophonChunk> DiffChunks { get; init; } = [];
 
-    public static SophonAssetOperation AddOrRepair(string urlPrefix, AssetProperty newAsset)
+    public static SophonAssetOperation AddOrRepair(string urlPrefix, string urlSuffix, AssetProperty newAsset)
     {
         return new()
         {
             Kind = SophonAssetOperationKind.AddOrRepair,
             UrlPrefix = string.Intern(urlPrefix),
+            UrlSuffix = string.Intern(urlSuffix),
             NewAsset = newAsset,
-            DiffChunks = newAsset.AssetChunks.Select(chunk => new SophonChunk(urlPrefix, chunk)).ToList(),
+            DiffChunks = newAsset.AssetChunks.Select(chunk => new SophonChunk(urlPrefix, urlSuffix, chunk)).ToList(),
         };
     }
 
-    public static SophonAssetOperation Modify(string urlPrefix, AssetProperty oldAsset, AssetProperty newAsset, List<SophonChunk> diffChunks)
+    public static SophonAssetOperation Modify(string urlPrefix, string urlSuffix, AssetProperty oldAsset, AssetProperty newAsset, List<SophonChunk> diffChunks)
     {
         return new()
         {
             Kind = SophonAssetOperationKind.Modify,
             UrlPrefix = string.Intern(urlPrefix),
+            UrlSuffix = string.Intern(urlSuffix),
             OldAsset = oldAsset,
             NewAsset = newAsset,
             DiffChunks = diffChunks,

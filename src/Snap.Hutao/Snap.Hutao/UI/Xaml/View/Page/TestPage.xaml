@@ -200,6 +200,11 @@
                     </StackPanel>
                 </cwc:SettingsCard>
 
+                <cwc:SettingsCard
+                    Command="{Binding InstallBetaGameCommand}"
+                    Header="Install Beta Game"
+                    IsClickEnabled="True"/>
+
                 <TextBlock Style="{ThemeResource SettingsSectionHeaderTextBlockStyle}" Text="Announcement"/>
                 <Expander
                     HorizontalAlignment="Stretch"

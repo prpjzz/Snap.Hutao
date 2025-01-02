@@ -80,7 +80,7 @@ internal sealed partial class SophonChunksPackageConverter : PackageConverter
             {
                 if (currentManifest.ManifestProto.Assets.FirstOrDefault(currentAsset => IsSameAsset(currentAsset, targetAsset)) is not { } currentAsset)
                 {
-                    yield return PackageItemOperationForSophonChunks.Add(targetManifest.UrlPrefix, targetAsset);
+                    yield return PackageItemOperationForSophonChunks.Add(targetManifest.UrlPrefix, targetManifest.UrlSuffix, targetAsset);
                     continue;
                 }
 
@@ -94,7 +94,7 @@ internal sealed partial class SophonChunksPackageConverter : PackageConverter
                 {
                     if (currentAsset.AssetChunks.FirstOrDefault(c => c.ChunkDecompressedHashMd5.Equals(chunk.ChunkDecompressedHashMd5, StringComparison.OrdinalIgnoreCase)) is null)
                     {
-                        diffChunks.Add(new(targetManifest.UrlPrefix, chunk));
+                        diffChunks.Add(new(targetManifest.UrlPrefix, targetManifest.UrlSuffix, chunk));
                     }
                 }
 
@@ -260,7 +260,7 @@ internal sealed partial class SophonChunksPackageConverter : PackageConverter
                     }
 
                     inMemoryManifestStream.Position = 0;
-                    SophonDecodedManifest decodedManifest = new(sophonManifest.ChunkDownload.UrlPrefix, SophonManifestProto.Parser.ParseFrom(inMemoryManifestStream));
+                    SophonDecodedManifest decodedManifest = new(sophonManifest.ChunkDownload, SophonManifestProto.Parser.ParseFrom(inMemoryManifestStream));
                     return new(sophonManifest.Stats.UncompressedSize, [decodedManifest]);
                 }
             }
@@ -320,7 +320,7 @@ internal sealed partial class SophonChunksPackageConverter : PackageConverter
 
         IEnumerable<SophonChunk> chunks = asset.Kind switch
         {
-            PackageItemOperationKind.Add => asset.NewAsset.AssetChunks.Select(chunk => new SophonChunk(asset.UrlPrefix, chunk)),
+            PackageItemOperationKind.Add => asset.NewAsset.AssetChunks.Select(chunk => new SophonChunk(asset.UrlPrefix, asset.UrlSuffix, chunk)),
             PackageItemOperationKind.Replace => asset.DiffChunks,
             _ => [],
         };

@@ -17,9 +17,11 @@ using Snap.Hutao.Service.Game.Package.Advanced;
 using Snap.Hutao.Service.Game.Scheme;
 using Snap.Hutao.Service.Notification;
 using Snap.Hutao.UI.Xaml;
+using Snap.Hutao.UI.Xaml.View.Dialog;
 using Snap.Hutao.UI.Xaml.View.Window;
 using Snap.Hutao.ViewModel.Game;
 using Snap.Hutao.ViewModel.Guide;
+using Snap.Hutao.Web.Hoyolab.Downloader;
 using Snap.Hutao.Web.Hoyolab.HoyoPlay.Connect;
 using Snap.Hutao.Web.Hoyolab.HoyoPlay.Connect.Branch;
 using Snap.Hutao.Web.Hutao.HutaoAsAService;
@@ -432,6 +434,41 @@ internal sealed partial class TestViewModel : Abstraction.ViewModel
                 branch,
                 default,
                 default);
+
+            await gamePackageService.ExecuteOperationAsync(context).ConfigureAwait(false);
+        }
+    }
+
+    [Command("InstallBetaGameCommand")]
+    private async Task InstallBetaGameAsync()
+    {
+        IGamePackageService gamePackageService = serviceProvider.GetRequiredService<IGamePackageService>();
+        LaunchGameInstallBetaGameDialog dialog = await contentDialogFactory.CreateInstanceAsync<LaunchGameInstallBetaGameDialog>().ConfigureAwait(false);
+
+        (bool isOk, (IGameFileSystem gameFileSystem, SophonBuild build)) = await dialog.GetGameFileSystemAsync().ConfigureAwait(false);
+        if (!isOk)
+        {
+            return;
+        }
+
+        string message = $"""
+                          Version: {build.Tag}
+                          IsOversea: {gameFileSystem.IsOversea()}
+                          Install Directory: {gameFileSystem.GetGameDirectory()}
+                          """;
+
+        ContentDialogResult result = await contentDialogFactory.CreateForConfirmCancelAsync(
+                "Install Beta Game",
+                message)
+            .ConfigureAwait(false);
+
+        if (result is ContentDialogResult.Primary)
+        {
+            GamePackageOperationContext context = new(
+                serviceProvider,
+                GamePackageOperationKind.InstallBeta,
+                gameFileSystem,
+                build);
 
             await gamePackageService.ExecuteOperationAsync(context).ConfigureAwait(false);
         }

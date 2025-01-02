@@ -122,7 +122,7 @@ internal abstract partial class GameAssetOperation : IGameAssetOperation
 
         if (!File.Exists(assetPath))
         {
-            conflictHandler(SophonAssetOperation.AddOrRepair(asset.UrlPrefix, asset.AssetProperty));
+            conflictHandler(SophonAssetOperation.AddOrRepair(asset.UrlPrefix, asset.UrlSuffix, asset.AssetProperty));
             context.Progress.Report(new GamePackageOperationReport.Install(0, chunks.Count, asset.AssetProperty.AssetName));
 
             return;
@@ -142,14 +142,14 @@ internal abstract partial class GameAssetOperation : IGameAssetOperation
                     }
                     catch (IOException)
                     {
-                        conflictHandler(SophonAssetOperation.AddOrRepair(asset.UrlPrefix, asset.AssetProperty));
+                        conflictHandler(SophonAssetOperation.AddOrRepair(asset.UrlPrefix, asset.UrlSuffix, asset.AssetProperty));
                         context.Progress.Report(new GamePackageOperationReport.Install(0, chunks.Count - i, asset.AssetProperty.AssetName));
                         return;
                     }
 
                     if (!chunk.ChunkDecompressedHashMd5.Equals(Hash.ToHexString(HashAlgorithmName.MD5, buffer.Span), StringComparison.OrdinalIgnoreCase))
                     {
-                        conflictHandler(SophonAssetOperation.AddOrRepair(asset.UrlPrefix, asset.AssetProperty));
+                        conflictHandler(SophonAssetOperation.AddOrRepair(asset.UrlPrefix, asset.UrlSuffix, asset.AssetProperty));
                         context.Progress.Report(new GamePackageOperationReport.Install(0, chunks.Count - i, asset.AssetProperty.AssetName));
                         return;
                     }
@@ -236,7 +236,7 @@ internal abstract partial class GameAssetOperation : IGameAssetOperation
     protected async ValueTask EnsureAssetAsync(GamePackageServiceContext context, SophonAssetOperation asset)
     {
         string assetPath = Path.Combine(context.Operation.GameFileSystem.GetGameDirectory(), asset.NewAsset.AssetName);
-        
+
         if (asset.NewAsset.AssetType is 64)
         {
             Directory.CreateDirectory(assetPath);
@@ -245,7 +245,7 @@ internal abstract partial class GameAssetOperation : IGameAssetOperation
 
         IList<SophonChunk> chunks = asset.Kind switch
         {
-            SophonAssetOperationKind.AddOrRepair => asset.NewAsset.AssetChunks.Select(chunk => new SophonChunk(asset.UrlPrefix, chunk)).ToList(),
+            SophonAssetOperationKind.AddOrRepair => asset.NewAsset.AssetChunks.Select(chunk => new SophonChunk(asset.UrlPrefix, asset.UrlSuffix, chunk)).ToList(),
             SophonAssetOperationKind.Modify => asset.DiffChunks,
             _ => [],
         };

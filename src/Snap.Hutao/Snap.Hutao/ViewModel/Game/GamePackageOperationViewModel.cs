@@ -188,7 +188,7 @@ internal sealed partial class GamePackageOperationViewModel : Abstraction.ViewMo
     {
         Title = finish.OperationKind switch
         {
-            GamePackageOperationKind.Install => SH.ViewModelGamePakcageOperationCompleteInstall,
+            GamePackageOperationKind.Install or GamePackageOperationKind.InstallBeta => SH.ViewModelGamePakcageOperationCompleteInstall,
             GamePackageOperationKind.Verify => finish.Repaired ? SH.ViewModelGamePakcageOperationCompleteRepair : SH.ViewModelGamePakcageOperationSkipRepair,
             GamePackageOperationKind.Update => SH.ViewModelGamePakcageOperationCompleteUpdate,
             GamePackageOperationKind.ExtractBlk or GamePackageOperationKind.ExtractExe => "Extracted",

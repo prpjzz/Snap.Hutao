@@ -12,20 +12,23 @@ internal sealed class PackageItemOperationForSophonChunks
 
     public string UrlPrefix { get; init; } = default!;
 
+    public string UrlSuffix { get; init; } = default!;
+
     public AssetProperty OldAsset { get; init; } = default!;
 
     public AssetProperty NewAsset { get; init; } = default!;
 
     public List<SophonChunk> DiffChunks { get; init; } = [];
 
-    public static PackageItemOperationForSophonChunks Add(string urlPrefix, AssetProperty newAsset)
+    public static PackageItemOperationForSophonChunks Add(string urlPrefix, string urlSuffix, AssetProperty newAsset)
     {
         return new()
         {
             Kind = PackageItemOperationKind.Add,
             UrlPrefix = string.Intern(urlPrefix),
+            UrlSuffix = string.Intern(urlSuffix),
             NewAsset = newAsset,
-            DiffChunks = newAsset.AssetChunks.Select(chunk => new SophonChunk(urlPrefix, chunk)).ToList(),
+            DiffChunks = newAsset.AssetChunks.Select(chunk => new SophonChunk(urlPrefix, urlSuffix, chunk)).ToList(),
         };
     }
 

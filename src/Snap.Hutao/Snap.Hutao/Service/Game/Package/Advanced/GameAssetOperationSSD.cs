@@ -18,7 +18,7 @@ internal sealed partial class GameAssetOperationSSD : GameAssetOperation
     {
         await Parallel.ForEachAsync(remoteBuild.Manifests, context.ParallelOptions, async (manifest, token) =>
         {
-            IEnumerable<SophonAssetOperation> assets = manifest.ManifestProto.Assets.Select(asset => SophonAssetOperation.AddOrRepair(manifest.UrlPrefix, asset));
+            IEnumerable<SophonAssetOperation> assets = manifest.ManifestProto.Assets.Select(asset => SophonAssetOperation.AddOrRepair(manifest.UrlPrefix, manifest.UrlSuffix, asset));
             await Parallel.ForEachAsync(assets, context.ParallelOptions, (asset, token) => EnsureAssetAsync(context, asset)).ConfigureAwait(true);
         }).ConfigureAwait(false);
     }
@@ -39,7 +39,7 @@ internal sealed partial class GameAssetOperationSSD : GameAssetOperation
         {
             IList<SophonChunk> chunks = asset.Kind switch
             {
-                SophonAssetOperationKind.AddOrRepair => asset.NewAsset.AssetChunks.Select(c => new SophonChunk(asset.UrlPrefix, c)).ToList(),
+                SophonAssetOperationKind.AddOrRepair => asset.NewAsset.AssetChunks.Select(c => new SophonChunk(asset.UrlPrefix, asset.UrlSuffix, c)).ToList(),
                 SophonAssetOperationKind.Modify => asset.DiffChunks,
                 _ => [],
             };
@@ -55,7 +55,7 @@ internal sealed partial class GameAssetOperationSSD : GameAssetOperation
 
     protected override async ValueTask VerifyManifestAsync(GamePackageServiceContext context, SophonDecodedManifest manifest, Action<SophonAssetOperation> conflictHandler)
     {
-        await Parallel.ForEachAsync(manifest.ManifestProto.Assets, context.ParallelOptions, (asset, token) => VerifyAssetAsync(context, new(manifest.UrlPrefix, asset), conflictHandler)).ConfigureAwait(false);
+        await Parallel.ForEachAsync(manifest.ManifestProto.Assets, context.ParallelOptions, (asset, token) => VerifyAssetAsync(context, new(manifest.UrlPrefix, manifest.UrlSuffix, asset), conflictHandler)).ConfigureAwait(false);
     }
 
     protected override async ValueTask RepairAssetsAsync(GamePackageServiceContext context, GamePackageIntegrityInfo info)

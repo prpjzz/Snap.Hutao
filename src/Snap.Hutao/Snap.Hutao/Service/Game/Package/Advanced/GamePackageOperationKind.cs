@@ -12,4 +12,5 @@ internal enum GamePackageOperationKind
 
     ExtractBlk,
     ExtractExe,
+    InstallBeta,
 }
