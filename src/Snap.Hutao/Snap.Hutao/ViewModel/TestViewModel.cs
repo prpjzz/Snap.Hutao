@@ -168,7 +168,7 @@ internal sealed partial class TestViewModel : Abstraction.ViewModel
     {
         SentrySdk.AddBreadcrumb(BreadcrumbFactory.CreateUI("Upload Hutao announcement", "TestViewModel.Command"));
 
-        using (IServiceScope scope = serviceProvider.CreateScope())
+        using (IServiceScope scope = serviceProvider.CreateScope(true))
         {
             HutaoAsAServiceClient hutaoAsAServiceClient = scope.ServiceProvider.GetRequiredService<HutaoAsAServiceClient>();
             Response response = await hutaoAsAServiceClient.UploadAnnouncementAsync(Announcement).ConfigureAwait(false);
@@ -195,7 +195,7 @@ internal sealed partial class TestViewModel : Abstraction.ViewModel
             return;
         }
 
-        using (IServiceScope scope = serviceProvider.CreateScope())
+        using (IServiceScope scope = serviceProvider.CreateScope(true))
         {
             HutaoAsAServiceClient hutaoAsAServiceClient = scope.ServiceProvider.GetRequiredService<HutaoAsAServiceClient>();
             Response response = await hutaoAsAServiceClient.GachaLogCompensationAsync(GachaLogCompensationDays).ConfigureAwait(false);
@@ -220,7 +220,7 @@ internal sealed partial class TestViewModel : Abstraction.ViewModel
             return;
         }
 
-        using (IServiceScope scope = serviceProvider.CreateScope())
+        using (IServiceScope scope = serviceProvider.CreateScope(true))
         {
             HutaoAsAServiceClient hutaoAsAServiceClient = scope.ServiceProvider.GetRequiredService<HutaoAsAServiceClient>();
             Response response = await hutaoAsAServiceClient.GachaLogDesignationAsync(GachaLogDesignationOptions.UserName, GachaLogDesignationOptions.Days).ConfigureAwait(false);
@@ -245,7 +245,7 @@ internal sealed partial class TestViewModel : Abstraction.ViewModel
             return;
         }
 
-        using (IServiceScope scope = serviceProvider.CreateScope())
+        using (IServiceScope scope = serviceProvider.CreateScope(true))
         {
             HutaoAsAServiceClient hutaoAsAServiceClient = scope.ServiceProvider.GetRequiredService<HutaoAsAServiceClient>();
             Response response = await hutaoAsAServiceClient.CdnCompensationAsync(CdnCompensationDays).ConfigureAwait(false);
@@ -270,7 +270,7 @@ internal sealed partial class TestViewModel : Abstraction.ViewModel
             return;
         }
 
-        using (IServiceScope scope = serviceProvider.CreateScope())
+        using (IServiceScope scope = serviceProvider.CreateScope(true))
         {
             HutaoAsAServiceClient hutaoAsAServiceClient = scope.ServiceProvider.GetRequiredService<HutaoAsAServiceClient>();
             Response response = await hutaoAsAServiceClient.CdnDesignationAsync(CdnDesignationOptions.UserName, CdnDesignationOptions.Days).ConfigureAwait(false);
@@ -329,7 +329,7 @@ internal sealed partial class TestViewModel : Abstraction.ViewModel
     {
         SentrySdk.AddBreadcrumb(BreadcrumbFactory.CreateUI("Test extract game blocks", "TestViewModel.Command"));
 
-        using (IServiceScope scope = serviceProvider.CreateScope())
+        using (IServiceScope scope = serviceProvider.CreateScope(true))
         {
             IGamePackageService gamePackageService = scope.ServiceProvider.GetRequiredService<IGamePackageService>();
             LaunchGameShared launchGameShared = scope.ServiceProvider.GetRequiredService<LaunchGameShared>();
@@ -442,7 +442,7 @@ internal sealed partial class TestViewModel : Abstraction.ViewModel
     {
         SentrySdk.AddBreadcrumb(BreadcrumbFactory.CreateUI("Test extract game executable", "TestViewModel.Command"));
 
-        using (IServiceScope scope = serviceProvider.CreateScope())
+        using (IServiceScope scope = serviceProvider.CreateScope(true))
         {
             IGamePackageService gamePackageService = serviceProvider.GetRequiredService<IGamePackageService>();
             HoyoPlayClient hoyoPlayClient = serviceProvider.GetRequiredService<HoyoPlayClient>();
@@ -565,7 +565,7 @@ internal sealed partial class TestViewModel : Abstraction.ViewModel
             Times = RedeemCodeGenerateOption.Times,
         };
 
-        using (IServiceScope scope = serviceProvider.CreateScope())
+        using (IServiceScope scope = serviceProvider.CreateScope(true))
         {
             HutaoAsAServiceClient hutaoAsAServiceClient = scope.ServiceProvider.GetRequiredService<HutaoAsAServiceClient>();
             HutaoResponse<RedeemGenerateResult> response = await hutaoAsAServiceClient.GenerateRedeemCodesAsync(request).ConfigureAwait(false);

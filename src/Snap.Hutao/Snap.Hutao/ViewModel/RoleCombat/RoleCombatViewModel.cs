@@ -136,7 +136,7 @@ internal sealed partial class RoleCombatViewModel : Abstraction.ViewModel, IReci
 
         if (await userService.GetCurrentUserAndUidAsync().ConfigureAwait(false) is { } userAndUid)
         {
-            using (IServiceScope scope = serviceProvider.CreateScope())
+            using (IServiceScope scope = serviceProvider.CreateScope(true))
             {
                 HutaoRoleCombatClient roleCombatClient = scope.ServiceProvider.GetRequiredService<HutaoRoleCombatClient>();
                 if (await roleCombatClient.GetPlayerRecordAsync(userAndUid).ConfigureAwait(false) is { } record)

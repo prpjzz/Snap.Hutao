@@ -67,7 +67,7 @@ internal readonly struct TypedWishSummaryBuilderContext
 
     public async ValueTask<HutaoResponse<GachaDistribution>?> GetGachaDistributionAsync(CancellationToken token = default)
     {
-        using (IServiceScope scope = ServiceProvider.CreateScope())
+        using (IServiceScope scope = ServiceProvider.CreateScope(true))
         {
             HutaoUserOptions hutaoUserOptions = scope.ServiceProvider.GetRequiredService<HutaoUserOptions>();
             await hutaoUserOptions.RefreshUserInfoAsync(token).ConfigureAwait(false);

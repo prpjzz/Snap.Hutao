@@ -87,7 +87,7 @@ internal sealed partial class CompactWebView2Window : Microsoft.UI.Xaml.Window,
         WebView.NavigationStarting += OnWebViewNavigationStarting;
         WebView.NavigationCompleted += OnWebViewNavigationCompleted;
 
-        IServiceScope scope = serviceProvider.CreateScope();
+        IServiceScope scope = serviceProvider.CreateScope(true);
         this.InitializeController(scope.ServiceProvider);
         taskContext = scope.ServiceProvider.GetRequiredService<ITaskContext>();
         lowLevelKeyOptions = scope.ServiceProvider.GetRequiredService<LowLevelKeyOptions>();

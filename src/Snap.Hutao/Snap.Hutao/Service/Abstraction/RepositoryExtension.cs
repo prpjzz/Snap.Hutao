@@ -14,7 +14,7 @@ internal static class RepositoryExtension
     public static TResult Execute<TEntity, TResult>(this IRepository<TEntity> repository, Func<DbSet<TEntity>, TResult> func)
         where TEntity : class
     {
-        using (IServiceScope scope = repository.ServiceProvider.CreateScope())
+        using (IServiceScope scope = repository.ServiceProvider.CreateScope(true))
         {
             AppDbContext appDbContext = scope.GetAppDbContext();
             return func(appDbContext.Set<TEntity>());
@@ -78,7 +78,7 @@ internal static class RepositoryExtension
     public static void TransactionalExecute<TEntity>(this IRepository<TEntity> repository, Action<DbSet<TEntity>> action)
         where TEntity : class
     {
-        using (IServiceScope scope = repository.ServiceProvider.CreateScope())
+        using (IServiceScope scope = repository.ServiceProvider.CreateScope(true))
         {
             AppDbContext appDbContext = scope.GetAppDbContext();
             using (IDbContextTransaction transaction = appDbContext.Database.BeginTransaction())
@@ -92,7 +92,7 @@ internal static class RepositoryExtension
     public static TResult TransactionalExecute<TEntity, TResult>(this IRepository<TEntity> repository, Func<DbSet<TEntity>, TResult> func)
         where TEntity : class
     {
-        using (IServiceScope scope = repository.ServiceProvider.CreateScope())
+        using (IServiceScope scope = repository.ServiceProvider.CreateScope(true))
         {
             AppDbContext appDbContext = scope.GetAppDbContext();
             using (IDbContextTransaction transaction = appDbContext.Database.BeginTransaction())

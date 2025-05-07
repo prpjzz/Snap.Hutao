@@ -13,7 +13,7 @@ internal sealed partial class HutaoSpiralAbyssService : ObjectCacheService, IHut
 
     public async ValueTask<Overview> GetOverviewAsync(bool last = false)
     {
-        using (IServiceScope scope = ServiceProvider.CreateScope())
+        using (IServiceScope scope = ServiceProvider.CreateScope(true))
         {
             HutaoSpiralAbyssClient homaClient = scope.ServiceProvider.GetRequiredService<HutaoSpiralAbyssClient>();
             return await FromCacheOrWebAsync(nameof(Overview), last, homaClient.GetOverviewAsync).ConfigureAwait(false);
@@ -22,7 +22,7 @@ internal sealed partial class HutaoSpiralAbyssService : ObjectCacheService, IHut
 
     public async ValueTask<IReadOnlyList<AvatarAppearanceRank>> GetAvatarAppearanceRanksAsync(bool last = false)
     {
-        using (IServiceScope scope = ServiceProvider.CreateScope())
+        using (IServiceScope scope = ServiceProvider.CreateScope(true))
         {
             HutaoSpiralAbyssClient homaClient = scope.ServiceProvider.GetRequiredService<HutaoSpiralAbyssClient>();
             return await FromCacheOrWebAsync(nameof(AvatarAppearanceRank), last, homaClient.GetAvatarAttendanceRatesAsync).ConfigureAwait(false);
@@ -31,7 +31,7 @@ internal sealed partial class HutaoSpiralAbyssService : ObjectCacheService, IHut
 
     public async ValueTask<IReadOnlyList<AvatarUsageRank>> GetAvatarUsageRanksAsync(bool last = false)
     {
-        using (IServiceScope scope = ServiceProvider.CreateScope())
+        using (IServiceScope scope = ServiceProvider.CreateScope(true))
         {
             HutaoSpiralAbyssClient homaClient = scope.ServiceProvider.GetRequiredService<HutaoSpiralAbyssClient>();
             return await FromCacheOrWebAsync(nameof(AvatarUsageRank), last, homaClient.GetAvatarUtilizationRatesAsync).ConfigureAwait(false);
@@ -40,7 +40,7 @@ internal sealed partial class HutaoSpiralAbyssService : ObjectCacheService, IHut
 
     public async ValueTask<IReadOnlyList<AvatarConstellationInfo>> GetAvatarConstellationInfosAsync(bool last = false)
     {
-        using (IServiceScope scope = ServiceProvider.CreateScope())
+        using (IServiceScope scope = ServiceProvider.CreateScope(true))
         {
             HutaoSpiralAbyssClient homaClient = scope.ServiceProvider.GetRequiredService<HutaoSpiralAbyssClient>();
             return await FromCacheOrWebAsync(nameof(AvatarConstellationInfo), last, homaClient.GetAvatarHoldingRatesAsync).ConfigureAwait(false);
@@ -49,7 +49,7 @@ internal sealed partial class HutaoSpiralAbyssService : ObjectCacheService, IHut
 
     public async ValueTask<IReadOnlyList<AvatarCollocation>> GetAvatarCollocationsAsync(bool last = false)
     {
-        using (IServiceScope scope = ServiceProvider.CreateScope())
+        using (IServiceScope scope = ServiceProvider.CreateScope(true))
         {
             HutaoSpiralAbyssClient homaClient = scope.ServiceProvider.GetRequiredService<HutaoSpiralAbyssClient>();
             return await FromCacheOrWebAsync(nameof(AvatarCollocation), last, homaClient.GetAvatarCollocationsAsync).ConfigureAwait(false);
@@ -58,7 +58,7 @@ internal sealed partial class HutaoSpiralAbyssService : ObjectCacheService, IHut
 
     public async ValueTask<IReadOnlyList<WeaponCollocation>> GetWeaponCollocationsAsync(bool last = false)
     {
-        using (IServiceScope scope = ServiceProvider.CreateScope())
+        using (IServiceScope scope = ServiceProvider.CreateScope(true))
         {
             HutaoSpiralAbyssClient homaClient = scope.ServiceProvider.GetRequiredService<HutaoSpiralAbyssClient>();
             return await FromCacheOrWebAsync(nameof(WeaponCollocation), last, homaClient.GetWeaponCollocationsAsync).ConfigureAwait(false);
@@ -67,7 +67,7 @@ internal sealed partial class HutaoSpiralAbyssService : ObjectCacheService, IHut
 
     public async ValueTask<IReadOnlyList<TeamAppearance>> GetTeamAppearancesAsync(bool last = false)
     {
-        using (IServiceScope scope = ServiceProvider.CreateScope())
+        using (IServiceScope scope = ServiceProvider.CreateScope(true))
         {
             HutaoSpiralAbyssClient homaClient = scope.ServiceProvider.GetRequiredService<HutaoSpiralAbyssClient>();
             return await FromCacheOrWebAsync(nameof(TeamAppearance), last, homaClient.GetTeamCombinationsAsync).ConfigureAwait(false);

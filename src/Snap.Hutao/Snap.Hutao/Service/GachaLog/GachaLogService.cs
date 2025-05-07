@@ -115,7 +115,7 @@ internal sealed partial class GachaLogService : IGachaLogService
         IAdvancedDbCollectionView<GachaArchive> localArchives = await GetArchiveCollectionAsync().ConfigureAwait(false);
         GachaLogFetchContext fetchContext = new(gachaLogRepository, context, isLazy);
 
-        using (IServiceScope scope = serviceProvider.CreateScope())
+        using (IServiceScope scope = serviceProvider.CreateScope(true))
         {
             GachaInfoClient gachaInfoClient = scope.ServiceProvider.GetRequiredService<GachaInfoClient>();
 

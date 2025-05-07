@@ -159,7 +159,7 @@ internal sealed partial class GuideViewModel : Abstraction.ViewModel
 
     protected override async ValueTask<bool> LoadOverrideAsync()
     {
-        using (IServiceScope scope = serviceProvider.CreateScope())
+        using (IServiceScope scope = serviceProvider.CreateScope(true))
         {
             HutaoInfrastructureClient hutaoInfrastructureClient = scope.ServiceProvider.GetRequiredService<HutaoInfrastructureClient>();
             HutaoResponse<StaticResourceSizeInformation> response = await hutaoInfrastructureClient.GetStaticSizeAsync().ConfigureAwait(false);

@@ -173,7 +173,7 @@ internal sealed partial class UserInitializationService : IUserInitializationSer
             return false;
         }
 
-        using (IServiceScope scope = serviceProvider.CreateScope())
+        using (IServiceScope scope = serviceProvider.CreateScope(true))
         {
             IServiceProvider serviceProvider = scope.ServiceProvider;
 

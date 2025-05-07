@@ -29,7 +29,7 @@ internal sealed partial class PromotionDeltaFactory
         {
             ImmutableArray<CalculableAvatar> calculableAvatars;
             ImmutableArray<CalculableWeapon> calculableWeapons;
-            using (IServiceScope scope = serviceProvider.CreateScope())
+            using (IServiceScope scope = serviceProvider.CreateScope(true))
             {
                 CalculateClient calculateClient = scope.ServiceProvider.GetRequiredService<CalculateClient>();
                 calculableAvatars = await calculateClient.GetAllAvatarsAsync(userAndUid).ConfigureAwait(false);

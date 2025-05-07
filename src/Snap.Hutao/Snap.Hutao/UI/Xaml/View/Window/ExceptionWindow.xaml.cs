@@ -18,7 +18,7 @@ internal sealed partial class ExceptionWindow : Microsoft.UI.Xaml.Window, INotif
 {
     private readonly SentryId id;
 
-    public ExceptionWindow(IServiceProvider serviceProvider, SentryId id)
+    public ExceptionWindow(SentryId id)
     {
         // Message pump will die if we introduce XamlWindowController
         InitializeComponent();
@@ -37,8 +37,6 @@ internal sealed partial class ExceptionWindow : Microsoft.UI.Xaml.Window, INotif
 
         SizeInt32 size = new(800, 600);
         AppWindow.Resize(size.Scale(this.GetRasterizationScale()));
-
-        serviceProvider.GetRequiredService<ICurrentXamlWindowReference>().Window?.Close();
         Bindings.Update();
     }
 
@@ -48,9 +46,9 @@ internal sealed partial class ExceptionWindow : Microsoft.UI.Xaml.Window, INotif
 
     public string? Comment { get; set => SetProperty(ref field, value); }
 
-    public static void Show(IServiceProvider serviceProvider, SentryId id)
+    public static void Show(SentryId id)
     {
-        ExceptionWindow window = new(serviceProvider, id);
+        ExceptionWindow window = new(id);
         window.AppWindow.Show(true);
         window.AppWindow.MoveInZOrderAtTop();
     }

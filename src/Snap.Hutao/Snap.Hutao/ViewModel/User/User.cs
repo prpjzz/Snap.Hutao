@@ -98,7 +98,7 @@ internal sealed partial class User : IEntityAccess<EntityUser>,
         if (UserGameRoles.CurrentItem is { } item && PreferredUid != item.GameUid)
         {
             PreferredUid = item.GameUid;
-            using (IServiceScope scope = serviceProvider.CreateScope())
+            using (IServiceScope scope = serviceProvider.CreateScope(true))
             {
                 scope.ServiceProvider.GetRequiredService<AppDbContext>().Users.UpdateAndSave(Entity);
             }

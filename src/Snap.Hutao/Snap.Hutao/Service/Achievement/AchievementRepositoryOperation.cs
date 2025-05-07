@@ -23,7 +23,7 @@ internal sealed partial class AchievementRepositoryOperation
     public ImportResult Merge(Guid archiveId, IEnumerable<UIAFItem> items, bool aggressive)
     {
         logger.LogInformation("Perform merge operation for [Archive: {Id}], [Aggressive: {Aggressive}]", archiveId, aggressive);
-        using (IServiceScope scope = serviceProvider.CreateScope())
+        using (IServiceScope scope = serviceProvider.CreateScope(true))
         {
             AppDbContext appDbContext = scope.GetAppDbContext();
             ImmutableArray<EntityAchievement> oldData = LoadAchievements(appDbContext, archiveId);
@@ -91,7 +91,7 @@ internal sealed partial class AchievementRepositoryOperation
     public ImportResult Overwrite(Guid archiveId, IEnumerable<EntityAchievement> items)
     {
         logger.LogInformation("Perform Overwrite Operation for [Archive: {Id}]", archiveId);
-        using (IServiceScope scope = serviceProvider.CreateScope())
+        using (IServiceScope scope = serviceProvider.CreateScope(true))
         {
             AppDbContext appDbContext = scope.GetAppDbContext();
             ImmutableArray<EntityAchievement> oldData = LoadAchievements(appDbContext, archiveId);

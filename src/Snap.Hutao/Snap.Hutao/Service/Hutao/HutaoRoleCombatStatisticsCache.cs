@@ -28,7 +28,7 @@ internal sealed partial class HutaoRoleCombatStatisticsCache : StatisticsCache, 
     private async Task AvatarAppearancesAsync(HutaoRoleCombatStatisticsMetadataContext context)
     {
         RoleCombatStatisticsItem raw;
-        using (IServiceScope scope = serviceProvider.CreateScope())
+        using (IServiceScope scope = serviceProvider.CreateScope(true))
         {
             IHutaoRoleCombatService hutaoService = scope.ServiceProvider.GetRequiredService<IHutaoRoleCombatService>();
             raw = await hutaoService.GetRoleCombatStatisticsItemAsync().ConfigureAwait(false);

@@ -12,7 +12,7 @@ internal static class LaunchGameLaunchExecution
     public static async ValueTask LaunchExecutionAsync(this IViewModelSupportLaunchExecution viewModel, UserAndUid? userAndUid)
     {
         // Force use root scope
-        using (IServiceScope scope = Ioc.Default.CreateScope())
+        using (IServiceScope scope = Ioc.Default.CreateScope(true))
         {
             IInfoBarService infoBarService = scope.ServiceProvider.GetRequiredService<IInfoBarService>();
             DefaultLaunchExecutionInvoker invoker = new();

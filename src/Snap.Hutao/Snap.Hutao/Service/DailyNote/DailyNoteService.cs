@@ -50,7 +50,7 @@ internal sealed partial class DailyNoteService : IDailyNoteService, IRecipient<U
 
         DailyNoteEntry newEntry = DailyNoteEntry.From(userAndUid);
 
-        using (IServiceScope scope = serviceProvider.CreateScope())
+        using (IServiceScope scope = serviceProvider.CreateScope(true))
         {
             Response<WebDailyNote> dailyNoteResponse = await ScopedGetDailyNoteAsync(scope, userAndUid, token).ConfigureAwait(false);
             if (ResponseValidator.TryValidate(dailyNoteResponse, serviceProvider, out WebDailyNote? data))
@@ -131,7 +131,7 @@ internal sealed partial class DailyNoteService : IDailyNoteService, IRecipient<U
         bool autoRefresh = dailyNoteOptions.IsAutoRefreshEnabled;
         TimeSpan threshold = TimeSpan.FromSeconds(dailyNoteOptions.SelectedRefreshTime?.Value ?? 60 * 60 * 4);
 
-        using (IServiceScope scope = serviceProvider.CreateScope())
+        using (IServiceScope scope = serviceProvider.CreateScope(true))
         {
             DailyNoteWebhookOperation dailyNoteWebhookOperation = serviceProvider.GetRequiredService<DailyNoteWebhookOperation>();
 

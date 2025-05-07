@@ -80,7 +80,7 @@ internal sealed partial class InventoryService : IInventoryService
         ImmutableArray<AvatarPromotionDelta> deltas = await promotionDeltaFactory.GetAsync(context, userAndUid).ConfigureAwait(false);
 
         BatchConsumption? batchConsumption;
-        using (IServiceScope scope = serviceScopeFactory.CreateScope())
+        using (IServiceScope scope = serviceScopeFactory.CreateScope(true))
         {
             CalculateClient calculateClient = scope.ServiceProvider.GetRequiredService<CalculateClient>();
 

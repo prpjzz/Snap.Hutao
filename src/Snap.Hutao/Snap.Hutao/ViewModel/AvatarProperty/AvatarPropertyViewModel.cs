@@ -232,7 +232,7 @@ internal sealed partial class AvatarPropertyViewModel : Abstraction.ViewModel, I
         }
 
         CalculatorBatchConsumption? batchConsumption;
-        using (IServiceScope scope = scopeContext.ServiceScopeFactory.CreateScope())
+        using (IServiceScope scope = scopeContext.ServiceScopeFactory.CreateScope(true))
         {
             CalculateClient calculatorClient = scope.ServiceProvider.GetRequiredService<CalculateClient>();
             Response<CalculatorBatchConsumption> response = await calculatorClient
@@ -299,7 +299,7 @@ internal sealed partial class AvatarPropertyViewModel : Abstraction.ViewModel, I
             ImmutableArray<CalculatorAvatarPromotionDelta> deltas = deltasBuilder.ToImmutable();
 
             CalculatorBatchConsumption? batchConsumption;
-            using (IServiceScope scope = scopeContext.ServiceScopeFactory.CreateScope())
+            using (IServiceScope scope = scopeContext.ServiceScopeFactory.CreateScope(true))
             {
                 CalculateClient calculatorClient = scope.ServiceProvider.GetRequiredService<CalculateClient>();
                 Response<CalculatorBatchConsumption> response = await calculatorClient.BatchComputeAsync(userAndUid, deltas).ConfigureAwait(false);

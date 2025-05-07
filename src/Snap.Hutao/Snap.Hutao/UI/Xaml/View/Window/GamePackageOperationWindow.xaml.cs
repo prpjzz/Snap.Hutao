@@ -33,7 +33,7 @@ internal sealed partial class GamePackageOperationWindow : Microsoft.UI.Xaml.Win
             presenter.IsMaximizable = false;
         }
 
-        IServiceScope scope = serviceProvider.CreateScope();
+        IServiceScope scope = serviceProvider.CreateScope(true);
         this.InitializeController(scope.ServiceProvider);
         RootGrid.InitializeDataContext<GamePackageOperationViewModel>(scope.ServiceProvider);
     }

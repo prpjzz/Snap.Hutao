@@ -41,7 +41,7 @@ internal sealed class NotifyIconXamlHostWindow : Window, IWindowNeedEraseBackgro
             presenter.SetBorderAndTitleBar(false, false);
         }
 
-        IServiceScope scope = serviceProvider.CreateScope();
+        IServiceScope scope = serviceProvider.CreateScope(true);
         this.InitializeController(scope.ServiceProvider);
     }
 

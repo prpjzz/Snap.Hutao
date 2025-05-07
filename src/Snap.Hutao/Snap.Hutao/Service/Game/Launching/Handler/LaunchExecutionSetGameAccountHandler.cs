@@ -62,7 +62,7 @@ internal sealed class LaunchExecutionSetGameAccountHandler : ILaunchExecutionDel
             return false;
         }
 
-        using (IServiceScope scope = context.ServiceProvider.CreateScope())
+        using (IServiceScope scope = context.ServiceProvider.CreateScope(true))
         {
             IHoyoPlayPassportClient client = scope.ServiceProvider
                 .GetRequiredService<IOverseaSupportFactory<IHoyoPlayPassportClient>>()

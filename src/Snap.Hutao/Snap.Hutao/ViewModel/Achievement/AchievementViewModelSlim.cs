@@ -19,7 +19,7 @@ internal sealed partial class AchievementViewModelSlim : Abstraction.ViewModelSl
 
     protected override async Task LoadAsync()
     {
-        using (IServiceScope scope = ServiceProvider.CreateScope())
+        using (IServiceScope scope = ServiceProvider.CreateScope(true))
         {
             ITaskContext taskContext = scope.ServiceProvider.GetRequiredService<ITaskContext>();
             IMetadataService metadataService = scope.ServiceProvider.GetRequiredService<IMetadataService>();

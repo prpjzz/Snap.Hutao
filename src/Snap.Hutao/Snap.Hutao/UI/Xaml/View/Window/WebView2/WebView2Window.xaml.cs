@@ -50,7 +50,7 @@ internal sealed partial class WebView2Window : Microsoft.UI.Xaml.Window,
         WebView.Loaded += OnWebViewLoaded;
         WebView.Unloaded += OnWebViewUnloaded;
 
-        scope = serviceProvider.CreateScope();
+        scope = serviceProvider.CreateScope(true);
         this.InitializeController(scope.ServiceProvider);
     }
 

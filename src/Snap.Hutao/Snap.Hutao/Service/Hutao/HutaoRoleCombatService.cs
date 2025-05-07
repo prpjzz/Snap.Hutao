@@ -13,7 +13,7 @@ internal sealed partial class HutaoRoleCombatService : ObjectCacheService, IHuta
 
     public async ValueTask<RoleCombatStatisticsItem> GetRoleCombatStatisticsItemAsync()
     {
-        using (IServiceScope scope = ServiceProvider.CreateScope())
+        using (IServiceScope scope = ServiceProvider.CreateScope(true))
         {
             HutaoRoleCombatClient homaClient = scope.ServiceProvider.GetRequiredService<HutaoRoleCombatClient>();
             return await FromCacheOrWebAsync(nameof(RoleCombatStatisticsItem), false, homaClient.GetStatisticsAsync).ConfigureAwait(false);

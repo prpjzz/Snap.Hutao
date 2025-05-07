@@ -180,7 +180,7 @@ internal sealed partial class SpiralAbyssRecordViewModel : Abstraction.ViewModel
                 }
             }
 
-            using (IServiceScope scope = serviceProvider.CreateScope())
+            using (IServiceScope scope = serviceProvider.CreateScope(true))
             {
                 HutaoSpiralAbyssClient spiralAbyssClient = scope.ServiceProvider.GetRequiredService<HutaoSpiralAbyssClient>();
                 if (await spiralAbyssClient.GetPlayerRecordAsync(userAndUid).ConfigureAwait(false) is { } record)

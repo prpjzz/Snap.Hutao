@@ -33,7 +33,7 @@ public sealed class ScriptContext
 
     public async ValueTask<string> RequestAsync(string method, string url, string[] headers, string? body = default)
     {
-        using (IServiceScope scope = ServiceProvider.CreateScope())
+        using (IServiceScope scope = ServiceProvider.CreateScope(true))
         {
             IHttpRequestMessageBuilderFactory httpRequestMessageBuilderFactory = scope.ServiceProvider.GetRequiredService<IHttpRequestMessageBuilderFactory>();
             HttpRequestMessageBuilder builder = httpRequestMessageBuilderFactory.Create()
@@ -67,7 +67,7 @@ public sealed class ScriptContext
 
     public async ValueTask<string> RequestWithCurrentUserAndUidAsync(string method, string url, string[] headers, string? body = default, string? ds = default)
     {
-        using (IServiceScope scope = ServiceProvider.CreateScope())
+        using (IServiceScope scope = ServiceProvider.CreateScope(true))
         {
             IUserService userService = scope.ServiceProvider.GetRequiredService<IUserService>();
             if (await userService.GetCurrentUserAndUidAsync().ConfigureAwait(false) is not { } userAndUid)

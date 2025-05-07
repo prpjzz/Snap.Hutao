@@ -34,7 +34,7 @@ internal sealed class LaunchExecutionEnsureGameResourceHandler : ILaunchExecutio
 
         if (ShouldConvert(context, reference))
         {
-            using (IServiceScope scope = context.ServiceProvider.CreateScope())
+            using (IServiceScope scope = context.ServiceProvider.CreateScope(true))
             {
                 IContentDialogFactory contentDialogFactory = scope.ServiceProvider.GetRequiredService<IContentDialogFactory>();
                 LaunchGamePackageConvertDialog dialog = await contentDialogFactory.CreateInstanceAsync<LaunchGamePackageConvertDialog>(scope.ServiceProvider).ConfigureAwait(false);

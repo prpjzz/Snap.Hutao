@@ -23,7 +23,7 @@ internal sealed partial class SignInService : ISignInService
 
     public async ValueTask<bool> ClaimSignInRewardAsync(UserAndUid userAndUid, CancellationToken token = default)
     {
-        using (IServiceScope scope = serviceProvider.CreateScope())
+        using (IServiceScope scope = serviceProvider.CreateScope(true))
         {
             ISignInClient signInClient = scope.ServiceProvider
                 .GetRequiredService<IOverseaSupportFactory<ISignInClient>>()
@@ -56,7 +56,7 @@ internal sealed partial class SignInService : ISignInService
 
     public async ValueTask<bool> ClaimResignInRewardAsync(UserAndUid userAndUid, CancellationToken token = default)
     {
-        using (IServiceScope scope = serviceProvider.CreateScope())
+        using (IServiceScope scope = serviceProvider.CreateScope(true))
         {
             ISignInClient signInClient = scope.ServiceProvider
                 .GetRequiredService<IOverseaSupportFactory<ISignInClient>>()

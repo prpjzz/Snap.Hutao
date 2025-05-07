@@ -33,7 +33,7 @@ internal sealed partial class MainWindow : Microsoft.UI.Xaml.Window,
             presenter.PreferredMinimumHeight = minSize.Height;
         }
 
-        IServiceScope scope = serviceProvider.CreateScope();
+        IServiceScope scope = serviceProvider.CreateScope(true);
         this.InitializeController(scope.ServiceProvider);
         TitleView.InitializeDataContext<TitleViewModel>(scope.ServiceProvider);
         MainView.InitializeDataContext<MainViewModel>(scope.ServiceProvider);

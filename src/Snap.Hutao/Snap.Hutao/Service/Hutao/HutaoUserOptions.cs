@@ -154,7 +154,7 @@ internal sealed partial class HutaoUserOptions : ObservableObject
     {
         using (await operationLock.LockAsync(nameof(UseRedeemCodeAsync)).ConfigureAwait(false))
         {
-            using (IServiceScope scope = serviceProvider.CreateScope())
+            using (IServiceScope scope = serviceProvider.CreateScope(true))
             {
                 HutaoRedeemCodeClient hutaoRedeemCodeClient = scope.ServiceProvider.GetRequiredService<HutaoRedeemCodeClient>();
                 HutaoResponse<RedeemUseResult> response = await hutaoRedeemCodeClient.UseRedeemCodeAsync(new(code), token).ConfigureAwait(false);
@@ -174,7 +174,7 @@ internal sealed partial class HutaoUserOptions : ObservableObject
     {
         using (await operationLock.LockAsync(nameof(LoginAsync)).ConfigureAwait(false))
         {
-            using (IServiceScope scope = serviceProvider.CreateScope())
+            using (IServiceScope scope = serviceProvider.CreateScope(true))
             {
                 HutaoPassportClient hutaoPassportClient = scope.ServiceProvider.GetRequiredService<HutaoPassportClient>();
                 HutaoResponse<string> response = await hutaoPassportClient.LoginAsync(username, password, token).ConfigureAwait(false);
@@ -202,7 +202,7 @@ internal sealed partial class HutaoUserOptions : ObservableObject
     {
         using (await operationLock.LockAsync(nameof(RegisterAsync)).ConfigureAwait(false))
         {
-            using (IServiceScope scope = serviceProvider.CreateScope())
+            using (IServiceScope scope = serviceProvider.CreateScope(true))
             {
                 HutaoPassportClient hutaoPassportClient = scope.ServiceProvider.GetRequiredService<HutaoPassportClient>();
                 HutaoResponse<string> response = await hutaoPassportClient.RegisterAsync(username, password, verifyCode, token).ConfigureAwait(false);
@@ -226,7 +226,7 @@ internal sealed partial class HutaoUserOptions : ObservableObject
     {
         using (await operationLock.LockAsync(nameof(UnregisterAsync)).ConfigureAwait(false))
         {
-            using (IServiceScope scope = serviceProvider.CreateScope())
+            using (IServiceScope scope = serviceProvider.CreateScope(true))
             {
                 HutaoPassportClient hutaoPassportClient = scope.ServiceProvider.GetRequiredService<HutaoPassportClient>();
                 HutaoResponse response = await hutaoPassportClient.UnregisterAsync(username, password, verifyCode, token).ConfigureAwait(false);
@@ -254,7 +254,7 @@ internal sealed partial class HutaoUserOptions : ObservableObject
     {
         using (await operationLock.LockAsync(nameof(ResetUserNameAsync)).ConfigureAwait(false))
         {
-            using (IServiceScope scope = serviceProvider.CreateScope())
+            using (IServiceScope scope = serviceProvider.CreateScope(true))
             {
                 HutaoPassportClient hutaoPassportClient = scope.ServiceProvider.GetRequiredService<HutaoPassportClient>();
                 HutaoResponse<string> response = await hutaoPassportClient.ResetUserNameAsync(username, newUserName, verifyCode, newVerifyCode, token).ConfigureAwait(false);
@@ -274,7 +274,7 @@ internal sealed partial class HutaoUserOptions : ObservableObject
     {
         using (await operationLock.LockAsync(nameof(ResetPasswordAsync)).ConfigureAwait(false))
         {
-            using (IServiceScope scope = serviceProvider.CreateScope())
+            using (IServiceScope scope = serviceProvider.CreateScope(true))
             {
                 HutaoPassportClient hutaoPassportClient = scope.ServiceProvider.GetRequiredService<HutaoPassportClient>();
                 HutaoResponse<string> response = await hutaoPassportClient.ResetPasswordAsync(username, password, verifyCode, token).ConfigureAwait(false);
@@ -331,7 +331,7 @@ internal sealed partial class HutaoUserOptions : ObservableObject
     {
         using (await operationLock.LockAsync(nameof(PrivateRefreshUserInfoAsync)).ConfigureAwait(false))
         {
-            using (IServiceScope scope = serviceProvider.CreateScope())
+            using (IServiceScope scope = serviceProvider.CreateScope(true))
             {
                 await taskContext.SwitchToBackgroundAsync();
                 HutaoPassportClient passportClient = scope.ServiceProvider.GetRequiredService<HutaoPassportClient>();

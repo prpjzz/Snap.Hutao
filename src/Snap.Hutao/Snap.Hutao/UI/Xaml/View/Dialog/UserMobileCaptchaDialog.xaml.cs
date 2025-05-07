@@ -68,7 +68,7 @@ internal sealed partial class UserMobileCaptchaDialog : ContentDialog, IPassport
 
         ArgumentNullException.ThrowIfNull(Mobile);
 
-        using (IServiceScope scope = serviceProvider.CreateScope())
+        using (IServiceScope scope = serviceProvider.CreateScope(true))
         {
             IPassportClient passportClient = scope.ServiceProvider.GetRequiredService<IOverseaSupportFactory<IPassportClient>>().Create(false);
             (string? rawSession, Response<MobileCaptcha> response) = await passportClient.CreateLoginCaptchaAsync(Mobile, null).ConfigureAwait(false);

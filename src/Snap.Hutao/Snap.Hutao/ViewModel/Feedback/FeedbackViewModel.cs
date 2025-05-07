@@ -44,7 +44,7 @@ internal sealed partial class FeedbackViewModel : Abstraction.ViewModel
     protected override async ValueTask<bool> LoadOverrideAsync()
     {
         IPInformation? info;
-        using (IServiceScope scope = serviceProvider.CreateScope())
+        using (IServiceScope scope = serviceProvider.CreateScope(true))
         {
             HutaoInfrastructureClient hutaoInfrastructureClient = scope.ServiceProvider.GetRequiredService<HutaoInfrastructureClient>();
             Response<IPInformation> resp = await hutaoInfrastructureClient.GetIPInformationAsync().ConfigureAwait(false);
@@ -87,7 +87,7 @@ internal sealed partial class FeedbackViewModel : Abstraction.ViewModel
 
         string language = cultureOptions.GetLanguageCodeForDocumentationSearch();
         AlgoliaResponse? response;
-        using (IServiceScope scope = serviceProvider.CreateScope())
+        using (IServiceScope scope = serviceProvider.CreateScope(true))
         {
             HutaoDocumentationClient hutaoDocumentationClient = scope.ServiceProvider.GetRequiredService<HutaoDocumentationClient>();
             response = await hutaoDocumentationClient.QueryAsync(search, language).ConfigureAwait(false);

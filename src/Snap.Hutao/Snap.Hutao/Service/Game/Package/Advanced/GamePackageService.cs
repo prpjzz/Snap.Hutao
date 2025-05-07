@@ -52,7 +52,7 @@ internal sealed partial class GamePackageService : IGamePackageService
             MaxDegreeOfParallelism = Environment.ProcessorCount,
         };
 
-        using (IServiceScope scope = serviceProvider.CreateScope())
+        using (IServiceScope scope = serviceProvider.CreateScope(true))
         {
             ITaskContext taskContext = scope.ServiceProvider.GetRequiredService<ITaskContext>();
 
@@ -122,7 +122,7 @@ internal sealed partial class GamePackageService : IGamePackageService
         }
 
         SophonBuild? build;
-        using (IServiceScope scope = serviceProvider.CreateScope())
+        using (IServiceScope scope = serviceProvider.CreateScope(true))
         {
             Response<SophonBuild> response = await scope.ServiceProvider
                 .GetRequiredService<IOverseaSupportFactory<ISophonClient>>()

@@ -59,7 +59,7 @@ internal sealed partial class UserAccountPasswordDialog : ContentDialog, IPasspo
         ArgumentNullException.ThrowIfNull(Account);
         ArgumentNullException.ThrowIfNull(Password);
 
-        using (IServiceScope scope = serviceProvider.CreateScope())
+        using (IServiceScope scope = serviceProvider.CreateScope(true))
         {
             IHoyoPlayPassportClient hoyoPlayPassportClient = scope.ServiceProvider.GetRequiredService<IOverseaSupportFactory<IHoyoPlayPassportClient>>().Create(isOversea);
             (string? rawSession, Response<LoginResult> response) = await hoyoPlayPassportClient.LoginByPasswordAsync(this).ConfigureAwait(false);

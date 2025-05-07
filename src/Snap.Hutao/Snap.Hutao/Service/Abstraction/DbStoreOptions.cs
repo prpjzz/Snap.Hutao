@@ -31,7 +31,7 @@ internal abstract partial class DbStoreOptions : ObservableObject
 
     protected void InitializeOptions(Expression<Func<SettingEntry, bool>> entrySelector, Action<string, string?> entryAction)
     {
-        using (IServiceScope scope = serviceProvider.CreateScope())
+        using (IServiceScope scope = serviceProvider.CreateScope(true))
         {
             AppDbContext appDbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
             foreach (SettingEntry entry in appDbContext.Settings.Where(entrySelector))
@@ -53,7 +53,7 @@ internal abstract partial class DbStoreOptions : ObservableObject
             return storage;
         }
 
-        using (IServiceScope scope = serviceProvider.CreateScope())
+        using (IServiceScope scope = serviceProvider.CreateScope(true))
         {
             AppDbContext appDbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
             storage = GetValue(appDbContext, key) ?? defaultValueFactory();
@@ -113,7 +113,7 @@ internal abstract partial class DbStoreOptions : ObservableObject
             return storage;
         }
 
-        using (IServiceScope scope = serviceProvider.CreateScope())
+        using (IServiceScope scope = serviceProvider.CreateScope(true))
         {
             AppDbContext appDbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
             string? value = appDbContext.Settings.SingleOrDefault(e => e.Key == key)?.Value;
@@ -131,7 +131,7 @@ internal abstract partial class DbStoreOptions : ObservableObject
             return storage.Value;
         }
 
-        using (IServiceScope scope = serviceProvider.CreateScope())
+        using (IServiceScope scope = serviceProvider.CreateScope(true))
         {
             AppDbContext appDbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
             string? value = appDbContext.Settings.SingleOrDefault(e => e.Key == key)?.Value;
@@ -148,7 +148,7 @@ internal abstract partial class DbStoreOptions : ObservableObject
             return storage;
         }
 
-        using (IServiceScope scope = serviceProvider.CreateScope())
+        using (IServiceScope scope = serviceProvider.CreateScope(true))
         {
             AppDbContext appDbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
             string? value = GetValue(appDbContext, key);
@@ -185,7 +185,7 @@ internal abstract partial class DbStoreOptions : ObservableObject
             return false;
         }
 
-        using (IServiceScope scope = serviceProvider.CreateScope())
+        using (IServiceScope scope = serviceProvider.CreateScope(true))
         {
             AppDbContext appDbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
             appDbContext.Settings.Where(e => e.Key == key).ExecuteDelete();

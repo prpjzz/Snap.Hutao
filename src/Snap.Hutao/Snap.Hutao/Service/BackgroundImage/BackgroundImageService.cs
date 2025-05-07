@@ -158,7 +158,7 @@ internal sealed partial class BackgroundImageService : IBackgroundImageService
 
     private async ValueTask SetCurrentBackgroundPathSetAsync([RequireStaticDelegate] Func<HutaoWallpaperClient, CancellationToken, ValueTask<Response<Wallpaper>>> responseFactory, CancellationToken token = default)
     {
-        using (IServiceScope scope = serviceProvider.CreateScope())
+        using (IServiceScope scope = serviceProvider.CreateScope(true))
         {
             HutaoWallpaperClient wallpaperClient = scope.ServiceProvider.GetRequiredService<HutaoWallpaperClient>();
             Response<Wallpaper> response = await responseFactory(wallpaperClient, token).ConfigureAwait(false);

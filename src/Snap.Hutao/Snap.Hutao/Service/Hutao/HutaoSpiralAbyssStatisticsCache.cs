@@ -63,7 +63,7 @@ internal sealed partial class HutaoSpiralAbyssStatisticsCache : StatisticsCache,
     private async Task AvatarCollocationsAsync(HutaoSpiralAbyssStatisticsMetadataContext context)
     {
         IReadOnlyList<AvatarCollocation> raw, rawLast;
-        using (IServiceScope scope = serviceProvider.CreateScope())
+        using (IServiceScope scope = serviceProvider.CreateScope(true))
         {
             IHutaoSpiralAbyssService hutaoService = scope.ServiceProvider.GetRequiredService<IHutaoSpiralAbyssService>();
             raw = await hutaoService.GetAvatarCollocationsAsync(false).ConfigureAwait(false);
@@ -83,7 +83,7 @@ internal sealed partial class HutaoSpiralAbyssStatisticsCache : StatisticsCache,
     private async Task WeaponCollocationsAsync(HutaoSpiralAbyssStatisticsMetadataContext context)
     {
         IReadOnlyList<WeaponCollocation> raw, rawLast;
-        using (IServiceScope scope = serviceProvider.CreateScope())
+        using (IServiceScope scope = serviceProvider.CreateScope(true))
         {
             IHutaoSpiralAbyssService hutaoService = scope.ServiceProvider.GetRequiredService<IHutaoSpiralAbyssService>();
             raw = await hutaoService.GetWeaponCollocationsAsync(false).ConfigureAwait(false);
@@ -101,7 +101,7 @@ internal sealed partial class HutaoSpiralAbyssStatisticsCache : StatisticsCache,
     private async Task AvatarAppearanceRankAsync(HutaoSpiralAbyssStatisticsMetadataContext context)
     {
         IReadOnlyList<AvatarAppearanceRank> raw, rawLast;
-        using (IServiceScope scope = serviceProvider.CreateScope())
+        using (IServiceScope scope = serviceProvider.CreateScope(true))
         {
             IHutaoSpiralAbyssService hutaoService = scope.ServiceProvider.GetRequiredService<IHutaoSpiralAbyssService>();
             raw = await hutaoService.GetAvatarAppearanceRanksAsync(false).ConfigureAwait(false);
@@ -122,7 +122,7 @@ internal sealed partial class HutaoSpiralAbyssStatisticsCache : StatisticsCache,
     private async Task AvatarUsageRanksAsync(HutaoSpiralAbyssStatisticsMetadataContext context)
     {
         IReadOnlyList<AvatarUsageRank> raw, rawLast;
-        using (IServiceScope scope = serviceProvider.CreateScope())
+        using (IServiceScope scope = serviceProvider.CreateScope(true))
         {
             IHutaoSpiralAbyssService hutaoService = scope.ServiceProvider.GetRequiredService<IHutaoSpiralAbyssService>();
             raw = await hutaoService.GetAvatarUsageRanksAsync(false).ConfigureAwait(false);
@@ -143,7 +143,7 @@ internal sealed partial class HutaoSpiralAbyssStatisticsCache : StatisticsCache,
     private async Task AvatarConstellationInfosAsync(HutaoSpiralAbyssStatisticsMetadataContext context)
     {
         IReadOnlyList<AvatarConstellationInfo> raw, rawLast;
-        using (IServiceScope scope = serviceProvider.CreateScope())
+        using (IServiceScope scope = serviceProvider.CreateScope(true))
         {
             IHutaoSpiralAbyssService hutaoService = scope.ServiceProvider.GetRequiredService<IHutaoSpiralAbyssService>();
             raw = await hutaoService.GetAvatarConstellationInfosAsync(false).ConfigureAwait(false);
@@ -163,7 +163,7 @@ internal sealed partial class HutaoSpiralAbyssStatisticsCache : StatisticsCache,
     private async Task TeamAppearancesAsync(HutaoSpiralAbyssStatisticsMetadataContext context)
     {
         IReadOnlyList<TeamAppearance> teamAppearancesRaw;
-        using (IServiceScope scope = serviceProvider.CreateScope())
+        using (IServiceScope scope = serviceProvider.CreateScope(true))
         {
             IHutaoSpiralAbyssService hutaoService = scope.ServiceProvider.GetRequiredService<IHutaoSpiralAbyssService>();
             teamAppearancesRaw = await hutaoService.GetTeamAppearancesAsync().ConfigureAwait(false);
@@ -175,7 +175,7 @@ internal sealed partial class HutaoSpiralAbyssStatisticsCache : StatisticsCache,
     [SuppressMessage("", "SH003")]
     private async Task OverviewAsync()
     {
-        using (IServiceScope scope = serviceProvider.CreateScope())
+        using (IServiceScope scope = serviceProvider.CreateScope(true))
         {
             IHutaoSpiralAbyssService hutaoService = scope.ServiceProvider.GetRequiredService<IHutaoSpiralAbyssService>();
             Overview = await hutaoService.GetOverviewAsync().ConfigureAwait(false);

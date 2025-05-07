@@ -43,7 +43,7 @@ internal sealed class XamlWindowController
     {
         windowType = window.GetType();
         this.window = window;
-        Debug.Assert(serviceProvider is IServiceScope scope && ReferenceEquals(serviceProvider, scope));
+        Debug.Assert(serviceProvider is IServiceScope scope);
         ServiceProvider = serviceProvider;
 
         appOptions = serviceProvider.GetRequiredService<AppOptions>();
@@ -171,8 +171,16 @@ internal sealed class XamlWindowController
 
         (window as IXamlWindowClosedHandler)?.OnWindowClosed();
 
-        // Dispose the service scope
-        ((IServiceScope)ServiceProvider).Dispose();
+        try
+        {
+            // Dispose the service scope
+            ((IServiceScope)ServiceProvider).Dispose();
+        }
+        catch (ObjectDisposedException)
+        {
+            // Ignore
+        }
+
         window.UninitializeController();
     }
 

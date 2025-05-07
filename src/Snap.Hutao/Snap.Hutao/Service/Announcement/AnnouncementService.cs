@@ -84,7 +84,7 @@ internal sealed partial class AnnouncementService : IAnnouncementService
 
         ImmutableArray<AnnouncementContent> contents;
         AnnouncementWrapper? wrapper;
-        using (IServiceScope scope = serviceScopeFactory.CreateScope())
+        using (IServiceScope scope = serviceScopeFactory.CreateScope(true))
         {
             AnnouncementClient announcementClient = scope.ServiceProvider.GetRequiredService<AnnouncementClient>();
 

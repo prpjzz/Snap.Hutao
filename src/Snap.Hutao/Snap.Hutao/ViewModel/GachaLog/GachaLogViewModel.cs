@@ -149,7 +149,7 @@ internal sealed partial class GachaLogViewModel : Abstraction.ViewModel
     private async ValueTask PrivateRefreshAsync(RefreshOptionKind optionKind)
     {
         GachaLogQuery query;
-        using (IServiceScope scope = serviceProvider.CreateScope())
+        using (IServiceScope scope = serviceProvider.CreateScope(true))
         {
             IGachaLogQueryProvider provider = scope.ServiceProvider.GetRequiredKeyedService<IGachaLogQueryProvider>(optionKind);
             (bool isOk, query) = await provider.GetQueryAsync().ConfigureAwait(false);

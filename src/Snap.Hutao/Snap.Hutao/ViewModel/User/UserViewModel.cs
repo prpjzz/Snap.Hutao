@@ -114,7 +114,7 @@ internal sealed partial class UserViewModel : ObservableObject
 
         await taskContext.SwitchToMainThreadAsync();
 
-        using (IServiceScope scope = serviceProvider.CreateScope())
+        using (IServiceScope scope = serviceProvider.CreateScope(true))
         {
             UserAccountPasswordDialog dialog = await contentDialogFactory
                 .CreateInstanceAsync<UserAccountPasswordDialog>(scope.ServiceProvider)
@@ -153,7 +153,7 @@ internal sealed partial class UserViewModel : ObservableObject
         }
 
         Response<LoginResult> response;
-        using (IServiceScope scope = serviceProvider.CreateScope())
+        using (IServiceScope scope = serviceProvider.CreateScope(true))
         {
             IHoyoPlayPassportClient hoyoPlayPassportClient = scope.ServiceProvider.GetRequiredService<IOverseaSupportFactory<IHoyoPlayPassportClient>>().Create(true);
             response = await hoyoPlayPassportClient.LoginByThirdPartyAsync(token).ConfigureAwait(false);
@@ -172,7 +172,7 @@ internal sealed partial class UserViewModel : ObservableObject
         // ContentDialog must be created by main thread.
         await taskContext.SwitchToMainThreadAsync();
 
-        using (IServiceScope scope = serviceProvider.CreateScope())
+        using (IServiceScope scope = serviceProvider.CreateScope(true))
         {
             // Get cookie from user input
             UserDialog dialog = await contentDialogFactory.CreateInstanceAsync<UserDialog>(scope.ServiceProvider).ConfigureAwait(false);
@@ -193,7 +193,7 @@ internal sealed partial class UserViewModel : ObservableObject
     {
         SentrySdk.AddBreadcrumb(BreadcrumbFactory2.CreateUI("Add chinese user", "UserViewModel.Command", [("source", "QR Code")]));
 
-        using (IServiceScope scope = serviceProvider.CreateScope())
+        using (IServiceScope scope = serviceProvider.CreateScope(true))
         {
             UserQRCodeDialog dialog = await contentDialogFactory.CreateInstanceAsync<UserQRCodeDialog>(scope.ServiceProvider).ConfigureAwait(false);
             (bool isOk, QrLoginResult? qrLoginResult) = await dialog.GetQrLoginResultAsync().ConfigureAwait(false);
@@ -214,7 +214,7 @@ internal sealed partial class UserViewModel : ObservableObject
     {
         SentrySdk.AddBreadcrumb(BreadcrumbFactory2.CreateUI("Add chinese user", "UserViewModel.Command", [("source", "Mobile Captcha")]));
 
-        using (IServiceScope scope = serviceProvider.CreateScope())
+        using (IServiceScope scope = serviceProvider.CreateScope(true))
         {
             UserMobileCaptchaDialog dialog = await contentDialogFactory.CreateInstanceAsync<UserMobileCaptchaDialog>(scope.ServiceProvider).ConfigureAwait(false);
             if (!await dialog.GetMobileCaptchaAsync().ConfigureAwait(false))

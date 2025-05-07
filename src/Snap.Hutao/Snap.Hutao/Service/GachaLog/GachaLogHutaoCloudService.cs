@@ -24,7 +24,7 @@ internal sealed partial class GachaLogHutaoCloudService : IGachaLogHutaoCloudSer
 
     public ValueTask<HutaoResponse<ImmutableArray<GachaEntry>>> GetGachaEntriesAsync(CancellationToken token = default)
     {
-        using (IServiceScope scope = serviceProvider.CreateScope())
+        using (IServiceScope scope = serviceProvider.CreateScope(true))
         {
             HomaGachaLogClient homaGachaLogClient = scope.ServiceProvider.GetRequiredService<HomaGachaLogClient>();
             return homaGachaLogClient.GetGachaEntriesAsync(token);
@@ -42,7 +42,7 @@ internal sealed partial class GachaLogHutaoCloudService : IGachaLogHutaoCloudSer
                 items.AddRange(gachaLogRepository.GetHutaoGachaItemListByArchiveIdAndQueryTypeNewerThanEndId(gachaArchive.InnerId, type, endId));
             }
 
-            using (IServiceScope scope = serviceProvider.CreateScope())
+            using (IServiceScope scope = serviceProvider.CreateScope(true))
             {
                 HomaGachaLogClient homaGachaLogClient = scope.ServiceProvider.GetRequiredService<HomaGachaLogClient>();
                 return await homaGachaLogClient.UploadGachaItemsAsync(uid, items, token).ConfigureAwait(false);
@@ -58,7 +58,7 @@ internal sealed partial class GachaLogHutaoCloudService : IGachaLogHutaoCloudSer
         EndIds endIds = CreateEndIdsForArchive(archive);
 
         ImmutableArray<Web.Hutao.GachaLog.GachaItem> array;
-        using (IServiceScope scope = serviceProvider.CreateScope())
+        using (IServiceScope scope = serviceProvider.CreateScope(true))
         {
             HomaGachaLogClient homaGachaLogClient = scope.ServiceProvider.GetRequiredService<HomaGachaLogClient>();
             Response<ImmutableArray<Web.Hutao.GachaLog.GachaItem>> resp = await homaGachaLogClient.RetrieveGachaItemsAsync(uid, endIds, token).ConfigureAwait(false);
@@ -82,7 +82,7 @@ internal sealed partial class GachaLogHutaoCloudService : IGachaLogHutaoCloudSer
 
     public async ValueTask<ValueResult<bool, string>> DeleteGachaItemsAsync(string uid, CancellationToken token = default)
     {
-        using (IServiceScope scope = serviceProvider.CreateScope())
+        using (IServiceScope scope = serviceProvider.CreateScope(true))
         {
             HomaGachaLogClient homaGachaLogClient = scope.ServiceProvider.GetRequiredService<HomaGachaLogClient>();
             return await homaGachaLogClient.DeleteGachaItemsAsync(uid, token).ConfigureAwait(false);
@@ -92,7 +92,7 @@ internal sealed partial class GachaLogHutaoCloudService : IGachaLogHutaoCloudSer
     public async ValueTask<ValueResult<bool, HutaoStatistics>> GetCurrentEventStatisticsAsync(CancellationToken token = default)
     {
         GachaEventStatistics? raw;
-        using (IServiceScope scope = serviceProvider.CreateScope())
+        using (IServiceScope scope = serviceProvider.CreateScope(true))
         {
             HomaGachaLogClient homaGachaLogClient = scope.ServiceProvider.GetRequiredService<HomaGachaLogClient>();
             Response<GachaEventStatistics> response = await homaGachaLogClient.GetGachaEventStatisticsAsync(token).ConfigureAwait(false);
@@ -127,7 +127,7 @@ internal sealed partial class GachaLogHutaoCloudService : IGachaLogHutaoCloudSer
 
     private async ValueTask<EndIds?> GetNewestEndIdsFromCloudAsync(string uid, CancellationToken token = default)
     {
-        using (IServiceScope scope = serviceProvider.CreateScope())
+        using (IServiceScope scope = serviceProvider.CreateScope(true))
         {
             HomaGachaLogClient homaGachaLogClient = scope.ServiceProvider.GetRequiredService<HomaGachaLogClient>();
             Response<EndIds> resp = await homaGachaLogClient.GetEndIdsAsync(uid, token).ConfigureAwait(false);

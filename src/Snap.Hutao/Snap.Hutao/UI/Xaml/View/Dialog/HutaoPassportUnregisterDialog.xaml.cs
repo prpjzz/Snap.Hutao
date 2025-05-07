@@ -46,7 +46,7 @@ internal sealed partial class HutaoPassportUnregisterDialog : ContentDialog
             return;
         }
 
-        using (IServiceScope scope = serviceScopeFactory.CreateScope())
+        using (IServiceScope scope = serviceScopeFactory.CreateScope(true))
         {
             HutaoPassportClient hutaoPassportClient = scope.ServiceProvider.GetRequiredService<HutaoPassportClient>();
 

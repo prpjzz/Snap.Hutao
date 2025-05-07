@@ -41,7 +41,7 @@ internal sealed partial class AvatarInfoService : IAvatarInfoService
 
     private async ValueTask<Summary> PrivateGetSummaryAsync(SummaryFactoryMetadataContext context, ImmutableArray<EntityAvatarInfo> avatarInfos, CancellationToken token)
     {
-        using (IServiceScope scope = serviceScopeFactory.CreateScope())
+        using (IServiceScope scope = serviceScopeFactory.CreateScope(true))
         {
             ISummaryFactory summaryFactory = scope.ServiceProvider.GetRequiredService<ISummaryFactory>();
 

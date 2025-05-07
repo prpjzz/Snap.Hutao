@@ -70,7 +70,7 @@ internal sealed class ObservableReorderableDbCollection<TEntity> : ObservableCol
     {
         AdjustIndex((List<TEntity>)Items);
 
-        using (IServiceScope scope = serviceProvider.CreateScope())
+        using (IServiceScope scope = serviceProvider.CreateScope(true))
         {
             scope.ServiceProvider.GetRequiredService<AppDbContext>().Set<TEntity>().UpdateRangeAndSave(Items);
         }
@@ -123,7 +123,7 @@ internal sealed class ObservableReorderableDbCollection<TEntityAccess, TEntity> 
     {
         AdjustIndex((List<TEntityAccess>)Items);
 
-        using (IServiceScope scope = serviceProvider.CreateScope())
+        using (IServiceScope scope = serviceProvider.CreateScope(true))
         {
             scope.ServiceProvider.GetRequiredService<AppDbContext>().Set<TEntity>().UpdateRangeAndSave(Items.Select(AccessEntity));
         }

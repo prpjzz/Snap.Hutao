@@ -151,7 +151,7 @@ internal sealed partial class AppActivation : IAppActivation, IAppActivationActi
     private async ValueTask UnsynchronizedHandleInitializationAsync()
     {
         // Sentry IpAddress Traits, should always be configured
-        using (IServiceScope scope = serviceProvider.CreateScope())
+        using (IServiceScope scope = serviceProvider.CreateScope(true))
         {
             // Transient, we need the scope to manage its lifetime
             await scope.ServiceProvider.GetRequiredService<SentryIpAddressTraits>().ConfigureAsync().ConfigureAwait(false);

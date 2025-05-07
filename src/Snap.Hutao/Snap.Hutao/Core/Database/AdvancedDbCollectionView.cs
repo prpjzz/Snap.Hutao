@@ -42,7 +42,7 @@ internal sealed partial class AdvancedDbCollectionView<TEntity> : AdvancedCollec
             item.IsSelected = ReferenceEquals(item, currentItem);
         }
 
-        using (IServiceScope scope = serviceProvider.CreateScope())
+        using (IServiceScope scope = serviceProvider.CreateScope(true))
         {
             AppDbContext dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
             dbContext.Set<TEntity>().ExecuteUpdate(static update => update.SetProperty(entity => entity.IsSelected, false));
@@ -109,7 +109,7 @@ internal sealed partial class AdvancedDbCollectionView<TEntityAccess, TEntity> :
             item.Entity.IsSelected = ReferenceEquals(item, currentItem);
         }
 
-        using (IServiceScope scope = serviceProvider.CreateScope())
+        using (IServiceScope scope = serviceProvider.CreateScope(true))
         {
             AppDbContext dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
             dbContext.Set<TEntity>().ExecuteUpdate(static update => update.SetProperty(entity => entity.IsSelected, false));

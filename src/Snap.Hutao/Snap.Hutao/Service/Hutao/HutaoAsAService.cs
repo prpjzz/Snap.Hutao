@@ -34,7 +34,7 @@ internal sealed partial class HutaoAsAService : IHutaoAsAService
             ImmutableArray<long> data = [.. excludedIds.Select(kvp => long.Parse(kvp.Key, CultureInfo.InvariantCulture))];
 
             ImmutableArray<HutaoAnnouncement> array;
-            using (IServiceScope scope = serviceScopeFactory.CreateScope())
+            using (IServiceScope scope = serviceScopeFactory.CreateScope(true))
             {
                 HutaoAsAServiceClient hutaoAsAServiceClient = scope.ServiceProvider.GetRequiredService<HutaoAsAServiceClient>();
                 Response<ImmutableArray<HutaoAnnouncement>> response = await hutaoAsAServiceClient.GetAnnouncementListAsync(data, token).ConfigureAwait(false);

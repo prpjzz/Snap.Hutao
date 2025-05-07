@@ -53,6 +53,11 @@ public sealed partial class App : Application
     [SuppressMessage("", "SA1202")]
     public new void Exit()
     {
+        if (XamlApplicationLifetime.Exiting)
+        {
+            return;
+        }
+
         XamlApplicationLifetime.Exiting = true;
         SentrySdk.AddBreadcrumb(BreadcrumbFactory.CreateInfo("Application exiting", "Hutao"));
         SpinWait.SpinUntil(static () => XamlApplicationLifetime.ActivationAndInitializationCompleted);

@@ -24,7 +24,7 @@ internal sealed partial class FeatureService : IFeatureService
         return await memoryCache.GetOrCreateAsync($"{nameof(FeatureService)}.IslandFeature.{tag}", async entry =>
         {
             entry.SetSlidingExpiration(TimeSpan.FromMinutes(5));
-            using (IServiceScope scope = serviceScopeFactory.CreateScope())
+            using (IServiceScope scope = serviceScopeFactory.CreateScope(true))
             {
                 IHttpClientFactory httpClientFactory = scope.ServiceProvider.GetRequiredService<IHttpClientFactory>();
                 using (HttpClient httpClient = httpClientFactory.CreateClient(nameof(FeatureService)))

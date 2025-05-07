@@ -37,6 +37,7 @@ internal static class DependencyInjection
 
     public static void WaitForDispose()
     {
+        _ = ServiceProviderExtension.CallerInfos;
         Lock.WriterLockAsync().GetAwaiter().GetResult().Dispose();
     }
 

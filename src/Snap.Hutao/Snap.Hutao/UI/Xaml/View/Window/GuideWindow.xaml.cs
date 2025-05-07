@@ -29,7 +29,7 @@ internal sealed partial class GuideWindow : Microsoft.UI.Xaml.Window,
             presenter.PreferredMaximumHeight = maxSize.Height;
         }
 
-        IServiceScope scope = serviceProvider.CreateScope();
+        IServiceScope scope = serviceProvider.CreateScope(true);
         this.InitializeController(scope.ServiceProvider);
         GuideView.InitializeDataContext<GuideViewModel>(scope.ServiceProvider);
     }

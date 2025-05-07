@@ -24,7 +24,7 @@ internal sealed partial class GachaLogViewModelSlim : Abstraction.ViewModelSlim<
 
     protected override async Task LoadAsync()
     {
-        using (IServiceScope scope = ServiceProvider.CreateScope())
+        using (IServiceScope scope = ServiceProvider.CreateScope(true))
         {
             IGachaLogService gachaLogService = scope.ServiceProvider.GetRequiredService<IGachaLogService>();
 

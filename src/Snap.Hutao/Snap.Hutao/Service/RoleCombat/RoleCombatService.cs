@@ -51,7 +51,7 @@ internal sealed partial class RoleCombatService : IRoleCombatService
     public async ValueTask RefreshRoleCombatAsync(RoleCombatMetadataContext context, UserAndUid userAndUid)
     {
         Web.Hoyolab.Takumi.GameRecord.RoleCombat.RoleCombat? webRoleCombat;
-        using (IServiceScope scope = serviceScopeFactory.CreateScope())
+        using (IServiceScope scope = serviceScopeFactory.CreateScope(true))
         {
             IOverseaSupportFactory<IGameRecordClient> gameRecordClientFactory = scope.ServiceProvider.GetRequiredService<IOverseaSupportFactory<IGameRecordClient>>();
 

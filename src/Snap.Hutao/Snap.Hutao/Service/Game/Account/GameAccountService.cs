@@ -58,7 +58,7 @@ internal sealed partial class GameAccountService : IGameAccountService
             return account;
         }
 
-        using (IServiceScope scope = serviceScopeFactory.CreateScope())
+        using (IServiceScope scope = serviceScopeFactory.CreateScope(true))
         {
             LaunchGameAccountNameDialog dialog = await contentDialogFactory.CreateInstanceAsync<LaunchGameAccountNameDialog>(scope.ServiceProvider).ConfigureAwait(false);
             if (await dialog.GetInputNameAsync().ConfigureAwait(false) is not (true, { } name))
@@ -105,7 +105,7 @@ internal sealed partial class GameAccountService : IGameAccountService
 
     public async ValueTask ModifyGameAccountAsync(GameAccount gameAccount)
     {
-        using (IServiceScope scope = serviceScopeFactory.CreateScope())
+        using (IServiceScope scope = serviceScopeFactory.CreateScope(true))
         {
             LaunchGameAccountNameDialog dialog = await contentDialogFactory.CreateInstanceAsync<LaunchGameAccountNameDialog>(scope.ServiceProvider).ConfigureAwait(false);
 

@@ -20,7 +20,7 @@ internal sealed partial class HutaoDiagnostics : IHutaoDiagnostics
 
     public async ValueTask<int> ExecuteSqlAsync(string sql)
     {
-        using (IServiceScope scope = serviceProvider.CreateScope())
+        using (IServiceScope scope = serviceProvider.CreateScope(true))
         {
             AppDbContext appDbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
             return await appDbContext.Database.ExecuteSqlRawAsync(sql).ConfigureAwait(false);

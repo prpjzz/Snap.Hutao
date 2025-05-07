@@ -23,7 +23,7 @@ internal sealed partial class UpdateService : IUpdateService
 
     public async ValueTask<CheckUpdateResult> CheckUpdateAsync(CancellationToken token = default)
     {
-        using (IServiceScope scope = serviceProvider.CreateScope())
+        using (IServiceScope scope = serviceProvider.CreateScope(true))
         {
             ITaskContext taskContext = scope.ServiceProvider.GetRequiredService<ITaskContext>();
             await taskContext.SwitchToBackgroundAsync();
@@ -67,7 +67,7 @@ internal sealed partial class UpdateService : IUpdateService
 
         InstalledLocation.CopyFileFromApplicationUri($"ms-appx:///{UpdaterFilename}", updaterTargetPath);
 
-        using (IServiceScope scope = serviceProvider.CreateScope())
+        using (IServiceScope scope = serviceProvider.CreateScope(true))
         {
             HutaoUserOptions hutaoUserOptions = scope.ServiceProvider.GetRequiredService<HutaoUserOptions>();
 

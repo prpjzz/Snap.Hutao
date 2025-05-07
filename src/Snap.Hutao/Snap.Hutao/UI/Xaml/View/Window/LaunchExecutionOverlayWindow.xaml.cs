@@ -52,7 +52,7 @@ internal sealed partial class LaunchExecutionOverlayWindow : Microsoft.UI.Xaml.W
 
         SystemBackdrop = new TransparentBackdrop();
 
-        IServiceScope scope = serviceProvider.CreateScope();
+        IServiceScope scope = serviceProvider.CreateScope(true);
         this.InitializeController(scope.ServiceProvider);
         RootView.InitializeDataContext<OverlayViewModel>(scope.ServiceProvider);
         lowLevelKeyOptions = scope.ServiceProvider.GetRequiredService<LowLevelKeyOptions>();

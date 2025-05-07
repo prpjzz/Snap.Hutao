@@ -34,7 +34,7 @@ internal sealed partial class AvatarInfoRepositoryOperation
         ImmutableArray<EntityAvatarInfo> dbInfos = avatarInfoRepository.GetAvatarInfoImmutableArrayByUid(uid);
         EnsureItemsAvatarIdUnique(dbInfos, uid, out FrozenDictionary<AvatarId, EntityAvatarInfo> dbInfoMap);
 
-        using (IServiceScope scope = serviceProvider.CreateScope())
+        using (IServiceScope scope = serviceProvider.CreateScope(true))
         {
             AppDbContext appDbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 

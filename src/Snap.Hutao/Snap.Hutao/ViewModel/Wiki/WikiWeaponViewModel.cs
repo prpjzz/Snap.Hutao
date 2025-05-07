@@ -148,7 +148,7 @@ internal sealed partial class WikiWeaponViewModel : Abstraction.ViewModel
         }
 
         CultivatePromotionDeltaOptions deltaOptions;
-        using (IServiceScope scope = serviceScopeFactory.CreateScope())
+        using (IServiceScope scope = serviceScopeFactory.CreateScope(true))
         {
             CalculableOptions options = new(null, weapon.ToCalculable());
             CultivatePromotionDeltaDialog dialog = await contentDialogFactory.CreateInstanceAsync<CultivatePromotionDeltaDialog>(scope.ServiceProvider, options).ConfigureAwait(false);
@@ -161,7 +161,7 @@ internal sealed partial class WikiWeaponViewModel : Abstraction.ViewModel
         }
 
         CalculateBatchConsumption? batchConsumption;
-        using (IServiceScope scope = serviceScopeFactory.CreateScope())
+        using (IServiceScope scope = serviceScopeFactory.CreateScope(true))
         {
             CalculateClient calculateClient = scope.ServiceProvider.GetRequiredService<CalculateClient>();
             Response<CalculateBatchConsumption> response = await calculateClient.BatchComputeAsync(userAndUid, deltaOptions.Delta).ConfigureAwait(false);

@@ -263,7 +263,7 @@ internal class MiHoYoJSBridge
     protected virtual async ValueTask<JsResult<Dictionary<string, object>>> GetUserInfoAsync(JsParam param)
     {
         UserFullInfoWrapper? wrapper;
-        using (IServiceScope scope = serviceProvider.CreateScope())
+        using (IServiceScope scope = serviceProvider.CreateScope(true))
         {
             IUserClient userClient = scope.ServiceProvider
                 .GetRequiredService<IOverseaSupportFactory<IUserClient>>()
@@ -319,7 +319,7 @@ internal class MiHoYoJSBridge
 
     protected virtual async ValueTask<IJsBridgeResult?> ShareAsync(JsParam<SharePayload> param)
     {
-        using (IServiceScope scope = serviceProvider.CreateScope())
+        using (IServiceScope scope = serviceProvider.CreateScope(true))
         {
             JsonSerializerOptions jsonSerializerOptions = scope.ServiceProvider.GetRequiredService<JsonSerializerOptions>();
             HttpClient httpClient = scope.ServiceProvider.GetRequiredService<HttpClient>();

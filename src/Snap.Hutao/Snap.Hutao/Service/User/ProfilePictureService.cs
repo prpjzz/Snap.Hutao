@@ -48,7 +48,7 @@ internal sealed partial class ProfilePictureService : IProfilePictureService
     public async ValueTask RefreshUserGameRoleAsync(UserGameRole userGameRole, CancellationToken token = default)
     {
         EnkaResponse? enkaResponse;
-        using (IServiceScope scope = serviceProvider.CreateScope())
+        using (IServiceScope scope = serviceProvider.CreateScope(true))
         {
             EnkaClient enkaClient = scope.ServiceProvider.GetRequiredService<EnkaClient>();
 

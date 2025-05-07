@@ -217,7 +217,7 @@ internal sealed partial class GamePackageViewModel : Abstraction.ViewModel
             LaunchScheme targetLaunchScheme = LaunchScheme;
 
             GameChannelSDKsWrapper? channelSDKsWrapper;
-            using (IServiceScope scope = serviceProvider.CreateScope())
+            using (IServiceScope scope = serviceProvider.CreateScope(true))
             {
                 HoyoPlayClient hoyoPlayClient = scope.ServiceProvider.GetRequiredService<HoyoPlayClient>();
                 Response<GameChannelSDKsWrapper> sdkResp = await hoyoPlayClient.GetChannelSDKAsync(targetLaunchScheme).ConfigureAwait(false);

@@ -115,7 +115,7 @@ internal sealed partial class LaunchGameShared
 
         try
         {
-            using (IServiceScope scope = serviceProvider.CreateScope())
+            using (IServiceScope scope = serviceProvider.CreateScope(true))
             {
                 try
                 {
@@ -154,7 +154,7 @@ internal sealed partial class LaunchGameShared
         using (gameFileSystem)
         {
             LaunchScheme launchScheme;
-            using (IServiceScope scope = serviceProvider.CreateScope())
+            using (IServiceScope scope = serviceProvider.CreateScope(true))
             {
                 LaunchGameConfigurationFixDialog dialog = await contentDialogFactory
                     .CreateInstanceAsync<LaunchGameConfigurationFixDialog>(scope.ServiceProvider)

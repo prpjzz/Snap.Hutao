@@ -15,7 +15,7 @@ internal sealed partial class ScriptingWindow : Microsoft.UI.Xaml.Window, IXamlW
     {
         InitializeComponent();
 
-        IServiceScope scope = serviceProvider.CreateScope();
+        IServiceScope scope = serviceProvider.CreateScope(true);
         RootGrid.InitializeDataContext<ScriptingViewModel>(scope.ServiceProvider);
         this.InitializeController(scope.ServiceProvider);
     }

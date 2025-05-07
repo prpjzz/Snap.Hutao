@@ -28,7 +28,7 @@ internal sealed partial class AvatarStrategyService : IAvatarStrategyService
 
         if (strategy is null)
         {
-            using (IServiceScope scope = serviceProvider.CreateScope())
+            using (IServiceScope scope = serviceProvider.CreateScope(true))
             {
                 HutaoStrategyClient strategyClient = scope.ServiceProvider.GetRequiredService<HutaoStrategyClient>();
                 Response<ImmutableDictionary<AvatarId, Strategy>> response = await strategyClient.GetStrategyItemAsync(avatarId).ConfigureAwait(false);

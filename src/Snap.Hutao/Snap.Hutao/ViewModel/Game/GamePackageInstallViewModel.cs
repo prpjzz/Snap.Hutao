@@ -35,7 +35,7 @@ internal sealed partial class GamePackageInstallViewModel : Abstraction.ViewMode
         // TODO: Why we are using this instead of Selected one?
         LaunchScheme launchScheme = KnownLaunchSchemes.Values.First(scheme => scheme.IsNotCompatOnly);
 
-        using (IServiceScope scope = serviceProvider.CreateScope())
+        using (IServiceScope scope = serviceProvider.CreateScope(true))
         {
             HoyoPlayClient hoyoPlayClient = scope.ServiceProvider.GetRequiredService<HoyoPlayClient>();
 
@@ -67,7 +67,7 @@ internal sealed partial class GamePackageInstallViewModel : Abstraction.ViewMode
         }
 
         GameInstallOptions gameInstallOptions;
-        using (IServiceScope scope = serviceProvider.CreateScope())
+        using (IServiceScope scope = serviceProvider.CreateScope(true))
         {
             LaunchGameInstallGameDialog dialog = await contentDialogFactory.CreateInstanceAsync<LaunchGameInstallGameDialog>(scope.ServiceProvider).ConfigureAwait(false);
             dialog.KnownSchemes = KnownLaunchSchemes.Values;
@@ -84,7 +84,7 @@ internal sealed partial class GamePackageInstallViewModel : Abstraction.ViewMode
 
         GameBranchesWrapper? branchesWrapper;
         GameChannelSDKsWrapper? channelSDKsWrapper;
-        using (IServiceScope scope = serviceProvider.CreateScope())
+        using (IServiceScope scope = serviceProvider.CreateScope(true))
         {
             HoyoPlayClient hoyoPlayClient = scope.ServiceProvider.GetRequiredService<HoyoPlayClient>();
 

@@ -231,7 +231,7 @@ internal sealed partial class MetadataService : IMetadataService
 
     private async ValueTask<MetadataTemplate?> GetMetadataTemplateAsync()
     {
-        using (IServiceScope scope = serviceScopeFactory.CreateScope())
+        using (IServiceScope scope = serviceScopeFactory.CreateScope(true))
         {
             IHttpClientFactory httpClientFactory = scope.ServiceProvider.GetRequiredService<IHttpClientFactory>();
             using (HttpClient httpClient = httpClientFactory.CreateClient(nameof(MetadataService)))
@@ -258,7 +258,7 @@ internal sealed partial class MetadataService : IMetadataService
             ImmutableDictionary<string, string>? metadataFileHashes;
             using (DependencyInjection.DisposeDeferral())
             {
-                using (IServiceScope scope = serviceScopeFactory.CreateScope())
+                using (IServiceScope scope = serviceScopeFactory.CreateScope(true))
                 {
                     IHttpClientFactory httpClientFactory = scope.ServiceProvider.GetRequiredService<IHttpClientFactory>();
                     using (HttpClient httpClient = httpClientFactory.CreateClient(nameof(MetadataService)))

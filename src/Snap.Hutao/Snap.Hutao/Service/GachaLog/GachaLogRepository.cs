@@ -64,7 +64,7 @@ internal sealed partial class GachaLogRepository : IGachaLogRepository
 
     public void AddGachaArchive(GachaArchive archive)
     {
-        using (IServiceScope scope = ServiceProvider.CreateScope())
+        using (IServiceScope scope = ServiceProvider.CreateScope(true))
         {
             AppDbContext appDbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
             appDbContext.GachaArchives.AddAndSave(archive);
